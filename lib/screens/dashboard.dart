@@ -1,4 +1,4 @@
-import 'package:ev_ui_admin/dao/adminDAO.dart';
+import 'package:ev_ui_admin/services/admin_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +17,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    AdminDAO? userDao = Provider.of<AdminDAO>(context);
+    AdminService? userDao = Provider.of<AdminService>(context);
 
     return Container();
   }

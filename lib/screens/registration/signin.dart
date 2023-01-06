@@ -1,5 +1,5 @@
 import 'package:ev_ui_admin/constants/colors.dart';
-import 'package:ev_ui_admin/dao/adminDAO.dart';
+import 'package:ev_ui_admin/services/admin_service.dart';
 import 'package:ev_ui_admin/screens/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,8 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    AdminDAO adminDAO = Provider.of<AdminDAO>(context, listen: false);
+    AdminService adminService =
+        Provider.of<AdminService>(context, listen: false);
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     return Scaffold(
@@ -194,15 +195,16 @@ class _SignInState extends State<SignIn> {
                                 child: TextButton(
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      dynamic res = await adminDAO.login(
-                                        identityno: identitynoController.text,
-                                        password: passwordController.text,
+                                      String? res = adminService.login(
+                                        idNo: identitynoController.text,
+                                        pwd: passwordController.text,
                                       );
-                                      Navigator.pop(context);
-                                      setState(() {
-                                        loginerror =
-                                            'Invalid username/password';
-                                      });
+
+                                      if (mounted && res != null) {
+                                        setState(() {
+                                          loginerror = res;
+                                        });
+                                      }
                                     } else {
                                       print('error credentials');
                                     }

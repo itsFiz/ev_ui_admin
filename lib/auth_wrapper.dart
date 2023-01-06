@@ -1,4 +1,4 @@
-import 'package:ev_ui_admin/dao/adminDAO.dart';
+import 'package:ev_ui_admin/services/admin_service.dart';
 import 'package:ev_ui_admin/screens/dashboard.dart';
 import 'package:ev_ui_admin/screens/navigation.dart';
 import 'package:ev_ui_admin/screens/registration/signin.dart';
@@ -15,12 +15,12 @@ class AuthWrapper extends StatefulWidget {
 class _AuthWrapperState extends State<AuthWrapper> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AdminDAO>(
-      builder: (context, userDAO, child) {
-        if (userDAO.user == null) {
-          return SignIn();
+    return Consumer<AdminService>(
+      builder: (context, user, child) {
+        if (!user.isLoggedin) {
+          return const SignIn();
         } else {
-          return Navi();
+          return const Navi();
         }
       },
     );
